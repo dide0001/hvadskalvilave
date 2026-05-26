@@ -113,6 +113,7 @@ const DATE_RESULTS: DateResult[] = [
       { emoji: '🕯️', text: 'Tænd stearinlys overalt' },
       { emoji: '🛋️', text: 'Byg den ultimative sofa-fort' },
       { emoji: '☕', text: 'Varm kakao eller te til aftenen' },
+      { emoji: '📸', text: 'Og selvfølgelig: backshots all night til sidst!' },
     ],
     bgGradient: 'from-violet-950 via-purple-950 to-indigo-950',
     emoji: '🏠',
@@ -130,6 +131,7 @@ const DATE_RESULTS: DateResult[] = [
       { emoji: '📸', text: 'Tag masser af fotos af hinanden' },
       { emoji: '☀️', text: 'Find det smukkeste solrige sted' },
       { emoji: '🍓', text: 'Medbring lækkerier og snacks' },
+      { emoji: '📸', text: 'Og selvfølgelig: backshots all night til sidst!' },
     ],
     bgGradient: 'from-emerald-950 via-green-950 to-teal-950',
     emoji: '🌲',
@@ -147,6 +149,7 @@ const DATE_RESULTS: DateResult[] = [
       { emoji: '🏛️', text: 'Find et museum, galeri eller udstilling' },
       { emoji: '🍜', text: 'Prøv en restaurant I aldrig har besøgt' },
       { emoji: '📸', text: 'Find byens smukkeste fotospots' },
+      { emoji: '📸', text: 'Og selvfølgelig: backshots all night til sidst!' },
     ],
     bgGradient: 'from-sky-950 via-blue-950 to-indigo-950',
     emoji: '🌆',
@@ -164,6 +167,7 @@ const DATE_RESULTS: DateResult[] = [
       { emoji: '👗', text: 'Klæd jer ekstra flot og lækker på' },
       { emoji: '🌅', text: 'Find en smuk udsigt til solnedgangen' },
       { emoji: '💌', text: 'Skriv en lille kærlig note' },
+      { emoji: '📸', text: 'Og selvfølgelig: backshots all night til sidst!' },
     ],
     bgGradient: 'from-rose-950 via-pink-950 to-red-950',
     emoji: '💞',
@@ -181,6 +185,7 @@ const DATE_RESULTS: DateResult[] = [
       { emoji: '🏺', text: 'Book et sjovt keramik-kursus' },
       { emoji: '📸', text: 'Lav en kreativ foto-shoot session' },
       { emoji: '✂️', text: 'Lav et hyggeligt DIY-projekt sammen' },
+      { emoji: '📸', text: 'Og selvfølgelig: backshots all night til sidst!' },
     ],
     bgGradient: 'from-orange-950 via-amber-950 to-yellow-950',
     emoji: '🎨',
@@ -198,10 +203,28 @@ const DATE_RESULTS: DateResult[] = [
       { emoji: '🎯', text: 'Laser tag eller paintball udfordring' },
       { emoji: '🧩', text: 'Escape room: 60 minutter til frihed!' },
       { emoji: '🎪', text: 'Tivoli eller forlystelsespark' },
+      { emoji: '📸', text: 'Og selvfølgelig: backshots all night til sidst!' },
     ],
     bgGradient: 'from-red-950 via-orange-950 to-amber-950',
     emoji: '⚡',
     tags: ['active', 'fun', 'adventure'],
+  },
+  {
+    id: 'backshots',
+    title: 'Backshots all night!',
+    titleEmoji: '📸',
+    description:
+      'I dag graver I ned i arkiverne! Find alle de gamle billeder frem — fra dengang I var lidt yngre, lidt mere fjollede og måske lidt mere skæve på billederne 😄 Nyd en aften med nostalgi, latter og masser af "husk den her?!"',
+    activities: [
+      { emoji: '📱', text: 'Find telefonen frem og åbn "For dig" i kameraet' },
+      { emoji: '😂', text: 'Find det pinligste billede af hinanden' },
+      { emoji: '🍕', text: 'Bestil takeaway og læg jer ind med billederne' },
+      { emoji: '🖼️', text: 'Lav et sjovt collage af de bedste shots' },
+      { emoji: '🏆', text: 'Kåre årets bedste og værste billede sammen' },
+    ],
+    bgGradient: 'from-fuchsia-950 via-purple-950 to-pink-950',
+    emoji: '📸',
+    tags: ['cozy', 'indoor', 'fun', 'relaxed'],
   },
 ]
 
@@ -236,29 +259,23 @@ interface ConfettiParticle {
   height: string
 }
 
+function makeParticles(): ConfettiParticle[] {
+  const colors = ['#ec4899', '#a855f7', '#f43f5e', '#fb923c', '#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#c084fc']
+  return Array.from({ length: 110 }, (_, i) => ({
+    id: i,
+    color: colors[i % colors.length],
+    left: `${Math.random() * 100}%`,
+    delay: `${Math.random() * 1.2}s`,
+    duration: `${2.5 + Math.random() * 2}s`,
+    width: `${6 + Math.random() * 10}px`,
+    height: `${8 + Math.random() * 14}px`,
+  }))
+}
+
 function Confetti({ active }: { active: boolean }) {
-  const [particles, setParticles] = useState<ConfettiParticle[]>([])
+  const [particles] = useState<ConfettiParticle[]>(() => makeParticles())
 
-  useEffect(() => {
-    if (active) {
-      const colors = ['#ec4899', '#a855f7', '#f43f5e', '#fb923c', '#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#c084fc']
-      setParticles(
-        Array.from({ length: 110 }, (_, i) => ({
-          id: i,
-          color: colors[i % colors.length],
-          left: `${Math.random() * 100}%`,
-          delay: `${Math.random() * 1.2}s`,
-          duration: `${2.5 + Math.random() * 2}s`,
-          width: `${6 + Math.random() * 10}px`,
-          height: `${8 + Math.random() * 14}px`,
-        }))
-      )
-    } else {
-      setParticles([])
-    }
-  }, [active])
-
-  if (!active && particles.length === 0) return null
+  if (!active) return null
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
@@ -439,18 +456,12 @@ function QuizScreen({
   onAnswer: (option: Option) => void
   selectedOption: Option | null
 }) {
-  const [animKey, setAnimKey] = useState(0)
-
-  useEffect(() => {
-    setAnimKey((k) => k + 1)
-  }, [questionIndex])
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8">
       <ProgressBar current={questionIndex} total={totalQuestions} />
 
       <div
-        key={animKey}
+        key={questionIndex}
         className="w-full max-w-lg"
         style={{ animation: 'slideInRight 0.4s ease-out' }}
       >
