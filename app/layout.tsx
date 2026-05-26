@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hvad skal vi lave i dag? 💕",
+  title: "Hvad skal vi lave i dag, Josefine? 💕",
   description: "Tag quizzen og find den perfekte date!",
 };
 

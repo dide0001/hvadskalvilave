@@ -42,7 +42,7 @@ const QUESTIONS: Question[] = [
     id: 0,
     question: 'Hvad er dit humør i dag?',
     emoji: '💭',
-    subtitle: 'Vær ærlig nu... 😄',
+    subtitle: 'Vær ærlig Josefine... 😄',
     options: [
       { id: 'a', text: 'På toppen af verden!', emoji: '🌟', tags: ['energetic', 'active', 'outdoor'] },
       { id: 'b', text: 'Hyggelig og afslappet', emoji: '🛋️', tags: ['relaxed', 'indoor', 'cozy'] },
@@ -367,6 +367,10 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
           💕
         </div>
 
+        <p className="text-pink-300/80 text-lg font-medium mb-2 tracking-wide">
+          Hej Josefine! 👋
+        </p>
+
         <h1 className="text-5xl sm:text-6xl font-black mb-4 bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400 bg-clip-text text-transparent leading-tight">
           Hvad skal vi
           <br />
@@ -401,7 +405,7 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
           </button>
         </div>
 
-        <p className="text-white/25 text-sm mt-8 italic">Lavet med ❤️ til dig</p>
+        <p className="text-white/25 text-sm mt-8 italic">Lavet med ❤️ til Josefine</p>
       </div>
     </div>
   )
@@ -555,7 +559,7 @@ function LoadingScreen() {
         {phases[phaseIndex]}
       </h2>
 
-      <p className="text-white/45 text-base">Finder den perfekte plan for jer to...</p>
+      <p className="text-white/45 text-base">Finder den perfekte plan til Josefine...</p>
 
       <div className="flex gap-3 mt-8">
         {[0, 1, 2].map((i) => (
